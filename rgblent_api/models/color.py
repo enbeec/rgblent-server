@@ -4,6 +4,7 @@ from django.core.validators import MaxValueValidator
 
 class Color(models.Model):
     """Color Model
+
         Fields:
             red (PositiveSmallIntegerField): red value
             green (PositiveSmallIntegerField): green value
