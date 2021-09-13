@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth import get_user
 from django.conf import settings
 
 USERCOLOR_LABEL_MAX_LENGTH = 100
