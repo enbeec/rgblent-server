@@ -18,7 +18,8 @@ load() {
 }
 
 MIGRATIONS_DIR="${API_APP}/migrations"
-PROTECTED_MIGRATIONS="__init__.py foo"
+# make sure you add these to the gitignore, also
+PROTECTED_MIGRATIONS="__init__.py"
 
 if [ "$1" == "migrations" ]; then
 	find ${MIGRATIONS_DIR} -type f $(printf "! -name %s " ${PROTECTED_MIGRATIONS}) -exec rm {} +

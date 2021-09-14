@@ -13,6 +13,11 @@
 	- you can explicitly ask for migrations to be reset by passing the `migrations` argument
 	- read the script for more details
 
+- Handling new migrations
+	1) add the filename(s) of the new migrations to `init_database.sh`
+	2) add the (negated) filename to .gitignore
+	3) don't forget to commit these changes as well as the migrations!
+
 ## Tricks
 
 ### Easy color fixture data using Vim
