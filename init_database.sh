@@ -18,8 +18,9 @@ load() {
 API_APP="rgblent_api"
 
 if [ "$1" == "migrations" ]; then
-	# ONCE I DEPLOY THIS I WILL NOT HANDLE THINGS THIS CRUDELY
-	rm -rf ${API_APP}/migrations
+	# ONCE I FREEZE THE MODELS, THIS WILL CHANGE
+	# TODO: a list of excluded migrations
+	rm ${API_APP}/migrations/*.py
 	rm db.sqlite3
 	manage makemigrations ${API_APP}
 	manage migrate
@@ -27,8 +28,6 @@ else
 	rm db.sqlite3
 	manage migrate
 fi
-
-# add fixtures using load() => load foo bar baz
 
 # if default colors won't load, try rebuilding migrations
 load default_colors ||  retry_with_migrations

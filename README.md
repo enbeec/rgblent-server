@@ -9,6 +9,8 @@
 ## Setup Commands
 
 - Run `init_database.sh` to ~~hear more about your car's extended warranty~~ initialize the database.
+	- if loading the default colors fails migrations are reset
+	- you can explicitly ask for migrations to be reset by passing the `migrations` argument
 	- read the script for more details
 
 ## Tricks
