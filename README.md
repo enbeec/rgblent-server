@@ -9,6 +9,7 @@
 ## Setup Commands
 
 - Run `init_database.sh` to ~~hear more about your car's extended warranty~~ initialize the database.
+	- read the script for more details
 
 ## Tricks
 
