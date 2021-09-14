@@ -1,3 +1,10 @@
+# IGNORE ALL MIGRATIONS BY DEFAULT
+rgblent_api/migrations/
+
+# UPDATE WITH ANY MIGRATIONS YOU WANT TO TRACK AND KEEP
+!rgblent_api/migrations/__init__.py
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

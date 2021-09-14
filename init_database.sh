@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+API_APP="rgblent_api"
+
 retry_with_migrations() {
 	# execute again with "migrations" argument
 	./$0 migrations
@@ -15,12 +17,11 @@ load() {
 	python3 manage.py loaddata "$@"
 }
 
-API_APP="rgblent_api"
+MIGRATIONS_DIR="${API_APP}/migrations"
+PROTECTED_MIGRATIONS="__init__.py foo"
 
 if [ "$1" == "migrations" ]; then
-	# ONCE I FREEZE THE MODELS, THIS WILL CHANGE
-	# TODO: a list of excluded migrations
-	rm ${API_APP}/migrations/*.py
+	find ${MIGRATIONS_DIR} -type f $(printf "! -name %s " ${PROTECTED_MIGRATIONS}) -exec rm {} +
 	rm db.sqlite3
 	manage makemigrations ${API_APP}
 	manage migrate
