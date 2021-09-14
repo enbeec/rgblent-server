@@ -18,6 +18,5 @@ class Color(models.Model):
         default=0, validators=[MaxValueValidator(255)])
     blue = models.PositiveSmallIntegerField(
         default=0, validators=[MaxValueValidator(255)])
-    alpha = models.PositiveSmallIntegerField(
-        default=0, validators=[MaxValueValidator(255)])
+    alpha = models.FloatField(default=1.0)
     is_default = models.BooleanField(default=False)
