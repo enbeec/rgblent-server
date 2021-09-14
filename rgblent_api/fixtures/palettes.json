@@ -1,0 +1,91 @@
+[
+  {
+    "pk": 1,
+    "model": "rgblent_api.Palette",
+    "fields": {
+      "builtin": true,
+      "user_id": null,
+      "name": "default"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "rgblent_api.PaletteColor",
+    "fields": {
+      "builtin": true,
+      "palette": 1,
+      "color": 1,
+      "label": "yellow-orange"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "rgblent_api.PaletteColor",
+    "fields": {
+      "builtin": true,
+      "palette": 1,
+      "color": 2,
+      "label": "yellow-green"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "rgblent_api.PaletteColor",
+    "fields": {
+      "builtin": true,
+      "palette": 1,
+      "color": 3,
+      "label": "green"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "rgblent_api.PaletteColor",
+    "fields": {
+      "builtin": true,
+      "palette": 1,
+      "color": 4,
+      "label": "light blue"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "rgblent_api.PaletteColor",
+    "fields": {
+      "builtin": true,
+      "palette": 1,
+      "color": 5,
+      "label": "blue"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "rgblent_api.PaletteColor",
+    "fields": {
+      "builtin": true,
+      "palette": 1,
+      "color": 6,
+      "label": "purple"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "rgblent_api.PaletteColor",
+    "fields": {
+      "builtin": true,
+      "palette": 1,
+      "color": 7,
+      "label": "pink"
+    }
+  },
+  {
+    "pk": 8,
+    "model": "rgblent_api.PaletteColor",
+    "fields": {
+      "builtin": true,
+      "palette": 1,
+      "color": 8,
+      "label": "red"
+    }
+  }
+]

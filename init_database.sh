@@ -26,11 +26,12 @@ if [ "$1" == "migrations" ]; then
 else
 	rm db.sqlite3
 	manage migrate
-	# if default colors won't load, try rebuilding migrations
-	load default_colors ||  retry_with_migrations
 fi
 
 # add fixtures using load() => load foo bar baz
 
+# if default colors won't load, try rebuilding migrations
+load default_colors ||  retry_with_migrations
 load users
 load tokens
+load palettes
