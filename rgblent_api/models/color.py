@@ -26,4 +26,4 @@ class Color(models.Model):
     def rgb_hex(self):
         # "02" means:   pad with 2 of "0"
         # "X" means:    print as uppercase hex
-        return "#{:02X}{:02X}{:02X}".format(red, green, blue)
+        return "#{:02X}{:02X}{:02X}".format(self.red, self.green, self.blue)

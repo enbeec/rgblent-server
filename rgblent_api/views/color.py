@@ -11,7 +11,8 @@ class ColorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Color
         # TODO: handle alpha
-        fields = ('id', 'hex', 'red', 'green', 'blue', 'builtin', 'is_default')
+        fields = ('id', 'rgb_hex', 'red', 'green',
+                  'blue', 'builtin', 'is_default')
 
 
 class ColorView(ViewSet):
