@@ -10,15 +10,13 @@ class RGBlent
     @options = { headers: { "Authorization": "Token #{token}" } }
   end
 
-  def color(pk: nil)
-    response = self.class.get(
-      "/colors#{pk.class == 1.class ? "/" + pk.to_str : ""}",
-      @options
-    )
+  def color()
+    response = self.class.get("/colors", @options)
+    response.parsed_response
+  end
 
-    for color in response.parsed_response
-      puts color
-    end
+  def get(path)
+    response = self.class.get(path, @options).parsed_response
   end
 end
 
