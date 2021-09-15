@@ -21,3 +21,9 @@ class Color(models.Model):
     alpha = models.FloatField(default=1.0)
     builtin = models.BooleanField(default=False)
     is_default = models.BooleanField(default=False)
+
+    @property
+    def rgb_hex(self):
+        # "02" means:   pad with 2 of "0"
+        # "X" means:    print as uppercase hex
+        return "#{:02X}{:02X}{:02X}".format(self.red, self.green, self.blue)

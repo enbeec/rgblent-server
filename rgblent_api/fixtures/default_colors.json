@@ -3,6 +3,7 @@
     "pk": 1,
     "model": "rgblent_api.Color",
     "fields": {
+      "is_default": true,
       "red": 255,
       "green": 223,
       "blue": 128,
@@ -13,6 +14,7 @@
     "pk": 2,
     "model": "rgblent_api.Color",
     "fields": {
+      "is_default": true,
       "red": 191,
       "green": 255,
       "blue": 128,
@@ -23,6 +25,7 @@
     "pk": 3,
     "model": "rgblent_api.Color",
     "fields": {
+      "is_default": true,
       "red": 128,
       "green": 255,
       "blue": 159,
@@ -33,6 +36,7 @@
     "pk": 4,
     "model": "rgblent_api.Color",
     "fields": {
+      "is_default": true,
       "red": 128,
       "green": 255,
       "blue": 255,
@@ -43,6 +47,7 @@
     "pk": 5,
     "model": "rgblent_api.Color",
     "fields": {
+      "is_default": true,
       "red": 128,
       "green": 159,
       "blue": 255,
@@ -53,6 +58,7 @@
     "pk": 6,
     "model": "rgblent_api.Color",
     "fields": {
+      "is_default": true,
       "red": 191,
       "green": 128,
       "blue": 255,
@@ -63,6 +69,7 @@
     "pk": 7,
     "model": "rgblent_api.Color",
     "fields": {
+      "is_default": true,
       "red": 255,
       "green": 128,
       "blue": 223,
@@ -73,6 +80,7 @@
     "pk": 8,
     "model": "rgblent_api.Color",
     "fields": {
+      "is_default": true,
       "red": 255,
       "green": 128,
       "blue": 128,
