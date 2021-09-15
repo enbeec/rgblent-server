@@ -16,3 +16,4 @@ class PaletteColor(models.Model):
     # RESTRICT keeps colors from being deleted if they are referenced somewhere
     color = models.ForeignKey("Color", on_delete=models.RESTRICT)
     label = models.CharField(max_length=PALETTECOLOR_LABEL_MAX_LENGTH)
+    builtin = models.BooleanField(default=False)

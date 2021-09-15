@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+API_APP="rgblent_api"
+
+retry_with_migrations() {
+	# execute again with "migrations" argument
+	./$0 migrations
+	# and exit entirely with return code
+	exit $?
+}
+
 manage() {
 	python3 manage.py "$@"
 }
@@ -8,16 +17,22 @@ load() {
 	python3 manage.py loaddata "$@"
 }
 
-API_APP="rgblent_api"
+MIGRATIONS_DIR="${API_APP}/migrations"
+# make sure you add these to the gitignore, also
+PROTECTED_MIGRATIONS="__init__.py"
 
 if [ "$1" == "migrations" ]; then
-	rm -rf $API_APP/migrations
+	find ${MIGRATIONS_DIR} -type f $(printf "! -name %s " ${PROTECTED_MIGRATIONS}) -exec rm {} +
 	rm db.sqlite3
-	manage makemigrations
+	manage makemigrations ${API_APP}
 	manage migrate
 else
 	rm db.sqlite3
 	manage migrate
 fi
 
-# add fixtures using load() => load foo bar baz
+# if default colors won't load, try rebuilding migrations
+load default_colors ||  retry_with_migrations
+load users
+load tokens
+load palettes
