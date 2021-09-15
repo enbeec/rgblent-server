@@ -2,9 +2,11 @@
 
 API_APP="rgblent_api"
 
+retry_count=$2
 retry_with_migrations() {
+	[ $retry_count -gt 2 ] && exit 1
 	# execute again with "migrations" argument
-	./$0 migrations
+	./$0 migrations $(( ${retry_count:-0} + 1 ))
 	# and exit entirely with return code
 	exit $?
 }
@@ -32,7 +34,7 @@ else
 fi
 
 # if default colors won't load, try rebuilding migrations
-load default_colors ||  retry_with_migrations
+load default_colors || retry_with_migrations
 load users
 load tokens
 load palettes
