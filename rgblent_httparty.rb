@@ -11,8 +11,15 @@ class RGBlent
   end
 
   def color(pk: nil)
-    self.class.get("/colors#{pk.class == 1.class ? "/" + pk.to_str : ""}", @options)
+    response = self.class.get(
+      "/colors#{pk.class == 1.class ? "/" + pk.to_str : ""}",
+      @options
+    )
+
+    for color in response.parsed_response
+      puts color
+    end
   end
 end
 
-$tokens = { "joe": "9ba45f09651c5b0c404f37a2d2572c026c146694" }
+$joe = RGBlent.new("9ba45f09651c5b0c404f37a2d2572c026c146694")
