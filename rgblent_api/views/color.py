@@ -23,7 +23,6 @@ class ColorView(ViewSet):
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
-        # TODO: search favorites by label
         colors = Color.objects.get(pk=pk)
         serializer = ColorSerializer(
             colors, context={'request': request})
