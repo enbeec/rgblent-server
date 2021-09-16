@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework.decorators import action
 from rgblent_api.models import Color, UserColor
+from utils.color import color_info
 
 
 class ColorSerializer(serializers.ModelSerializer):
@@ -38,4 +39,4 @@ class ColorView(ViewSet):
     @action(methods=['post'], detail=False)
     def info(self, request):
         rgb_hex = request.data["rgb_hex"]
-        return Response({"rgb_hex": rgb_hex})
+        return Response(color_info(rgb_hex))
