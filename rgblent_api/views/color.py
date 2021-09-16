@@ -3,7 +3,8 @@ from rest_framework import status
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from rest_framework.decorators import action
+from rest_framework.decorators import action, permission_classes, api_view
+from rest_framework.permissions import AllowAny
 from rgblent_api.models import Color, UserColor
 from utils.color import color_info
 
@@ -36,7 +37,9 @@ class ColorView(ViewSet):
             colors, many=True, context={'request': request})
         return Response(serializer.data)
 
-    @action(methods=['post'], detail=False)
-    def info(self, request):
-        rgb_hex = request.data["rgb_hex"]
-        return Response(color_info(rgb_hex))
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def colorinfo(request):
+    rgb_hex = request.data["rgb_hex"]
+    return Response(color_info(rgb_hex))

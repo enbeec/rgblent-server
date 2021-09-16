@@ -24,7 +24,7 @@ class RGBlent
   end
 
   def info(rgb_hex)
-    response = self.class.post("/colors/info", :headers => @options[:headers], :body => { "rgb_hex": rgb_hex }).parsed_response
+    response = self.class.post("/colorinfo", :headers => @options[:headers], :body => { "rgb_hex": rgb_hex }).parsed_response
   end
 end
 
