@@ -18,6 +18,14 @@ class RGBlent
   def get(path)
     response = self.class.get(path, @options).parsed_response
   end
+
+  def get(path)
+    response = self.class.get(path, @options).parsed_response
+  end
+
+  def info(rgb_hex)
+    response = self.class.post("/colors/info", :headers => @options[:headers], :body => { "rgb_hex": rgb_hex }).parsed_response
+  end
 end
 
 $joe = RGBlent.new("9ba45f09651c5b0c404f37a2d2572c026c146694")

@@ -34,3 +34,8 @@ class ColorView(ViewSet):
         serializer = ColorSerializer(
             colors, many=True, context={'request': request})
         return Response(serializer.data)
+
+    @action(methods=['post'], detail=False)
+    def info(self, request):
+        rgb_hex = request.data["rgb_hex"]
+        return Response({"rgb_hex": rgb_hex})
