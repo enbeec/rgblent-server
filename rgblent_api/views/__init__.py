@@ -1,1 +1,1 @@
-from .color import ColorView, colorinfo
+from .color import ColorView, colorinfo, default_colors
