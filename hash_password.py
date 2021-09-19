@@ -2,7 +2,7 @@
 
 if __name__ == "__main__":
     from utils.hash_password import hash_pbkdf2
-    from django.conf import settings  # needed for hasing
+    from django.conf import settings  # needed for hashing
     from sys import argv, stdout, stderr
     settings.configure()
 
