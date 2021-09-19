@@ -18,6 +18,9 @@
 	2) add the (negated) filename to .gitignore
 	3) don't forget to commit these changes as well as the migrations!
 
+- Fixtures by hand:
+Some fixture files do not declare primary keys. Be careful using these manually as they **will** result in duplicates if they already exist.
+
 ## Tricks
 
 ### Easy color fixture data using Vim
