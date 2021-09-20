@@ -17,9 +17,3 @@ def color_info(rgb_hex):
     }
 
 
-def make_interpolations(color_obj, steps=64, ColorClass=None):
-    if ColorClass is not None:
-        color_obj = convert_color(color_obj, ColorClass)
-    color_dict = color_obj.__dict__
-    interpolations = {}
-    return interpolations
