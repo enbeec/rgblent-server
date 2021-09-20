@@ -43,3 +43,11 @@ class ColorView(ViewSet):
 def colorinfo(request):
     rgb_hex = request.data["rgb_hex"]
     return Response(color_info(rgb_hex))
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def default_colors(request):
+    colors = Color.objects.filter(isDefault=True)
+    serializer = ColorSerializer(colors, context={'request': request})
+    return Response(serializer.data)
