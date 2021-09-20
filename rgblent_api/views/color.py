@@ -48,6 +48,7 @@ def colorinfo(request):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def default_colors(request):
-    colors = Color.objects.filter(isDefault=True)
-    serializer = ColorSerializer(colors, context={'request': request})
+    colors = Color.objects.filter(is_default=True)
+    serializer = ColorSerializer(
+        colors, many=True, context={'request': request})
     return Response(serializer.data)
