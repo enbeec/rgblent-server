@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.http import HttpResponseServerError
 from rest_framework import status
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
@@ -28,7 +29,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('name', 'username', 'email', 'colors', 'palettes')
+        fields = ('id', 'name', 'username', 'email', 'colors', 'palettes')
 
     def get_name(self, obj):
         return f"{obj.first_name} {obj.last_name}"
@@ -42,5 +43,10 @@ class UserView(ViewSet):
             users, many=True, context={'request': request})
         return Response(serializer.data)
 
-    def retrieve(self, request):
-        pass
+    def retrieve(self, request, pk=None):
+        try:
+            user = User.objects.get(pk=pk)
+            serializer = UserSerializer(user, context={'request': request})
+            return Response(serializer.data)
+        except Exception as ex:
+            return HttpResponseServerError(ex)
