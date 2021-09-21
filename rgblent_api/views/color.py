@@ -13,7 +13,7 @@ class ColorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Color
         # TODO: handle alpha
-        fields = ('id', 'rgb_hex', 'red', 'green',
+        fields = ('rgb_hex', 'red', 'green',
                   'blue', 'builtin', 'is_default')
 
 

@@ -14,6 +14,6 @@ class Palette(models.Model):
     # user is ONLY nullable in the case of builtins
     # TODO: consider enforcing this via validation
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE, null=True)
+                             related_name="palettes",  on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=PALETTE_NAME_MAX_LENGTH)
     builtin = models.BooleanField(default=False)

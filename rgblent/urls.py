@@ -17,10 +17,17 @@ from django.urls import include, path
 from django.contrib import admin
 from django.urls import path
 from rest_framework import routers
-from rgblent_api.views import ColorView, colorinfo, default_colors, default_palette
+from rgblent_api.views import (
+    UserView,
+    ColorView,
+    colorinfo,
+    default_colors,
+    default_palette
+)
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'colors', ColorView, 'color')
+router.register(r'users', UserView, 'user')
 
 urlpatterns = [
     path('', include(router.urls)),
