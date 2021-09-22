@@ -34,5 +34,23 @@
       "groups": [],
       "user_permissions": []
     }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$289aa5ef7118334aa11cd0ea$vMo7omygq7fCaD5ssxZ3yyBdYwy+Q3EV2xI7mrYL1Ro=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "valcuri",
+      "first_name": "Val",
+      "last_name": "Currie",
+      "email": "val@currie.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-10-10T22:48:19.899Z",
+      "groups": [],
+      "user_permissions": []
+    }
   }
 ]

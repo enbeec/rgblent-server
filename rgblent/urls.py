@@ -19,15 +19,19 @@ from django.urls import path
 from rest_framework import routers
 from rgblent_api.views import (
     UserView,
+    ProfileView,
     ColorView,
     colorinfo,
     default_colors,
-    default_palette
+    default_palette,
+    login_user,
+    register_user
 )
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'colors', ColorView, 'color')
 router.register(r'users', UserView, 'user')
+router.register(r'profile', ProfileView, 'profile')
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -35,4 +39,6 @@ urlpatterns = [
     path('default/colors', default_colors),
     path('default/palette', default_palette),
     path('admin/', admin.site.urls),
+    path('login', login_user),
+    path('register', register_user),
 ]

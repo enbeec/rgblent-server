@@ -50,3 +50,10 @@ class UserView(ViewSet):
             return Response(serializer.data)
         except Exception as ex:
             return HttpResponseServerError(ex)
+
+
+class ProfileView(ViewSet):
+    def list(self, request):
+        user = User.objects.get(pk=request.auth.user.id)
+        serializer = UserSerializer(user, context={'request': request})
+        return Response(serializer.data)
