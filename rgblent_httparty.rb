@@ -29,14 +29,15 @@ class RGBlent
     response = self.class.get(path, @options).parsed_response
   end
 
-  def login(email, password)
+  def login(username, password)
     response = self.class.post(
       "/login",
       :headers => @options[:headers],
-      :body => { "email": email, "password": password },
+      :body => { "username": username, "password": password },
     ).parsed_response
 
     if response["success"]
+      puts response
       return RGBlent.new(response["token"])
     else
       puts "failed to log in"
