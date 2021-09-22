@@ -11,10 +11,10 @@ User = get_user_model()
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login_user(request):
-    email = request.data['email']
+    username = request.data['username']
     password = request.data['password']
 
-    authenticated_user = authenticate(email=email, password=password)
+    authenticated_user = authenticate(username=username, password=password)
     if authenticated_user is not None:
         token = Token.objects.get(user=authenticated_user)
         data = {
