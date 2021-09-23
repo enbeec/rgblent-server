@@ -48,8 +48,10 @@ class ColorView(ViewSet):
     @action(methods=['post'], detail=True)
     def favorite(self, request, pk=None):
         color = Color.objects.filter(pk=pk)
-
-        return Response({})
+        user_color = UserColor(color=color, label=request.data['label'])
+        serializer = UserColorSerializer(
+            user_color, context={'request': request})
+        return Response(serializer.data)
 
 
 @api_view(['POST'])

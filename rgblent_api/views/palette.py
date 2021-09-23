@@ -22,7 +22,7 @@ class PaletteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Palette
-        fields = ('name', 'colors')
+        fields = ('id', 'name', 'colors')
 
 
 @api_view(['GET'])
