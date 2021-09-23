@@ -25,6 +25,27 @@ class PaletteSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'colors')
 
 
+class PaletteView(ViewSet):
+    def create(self, request):
+        name = request.data["name"]
+        # ignore all but the first 8 colors just in case
+        colors = request.data["colors"][0:7]
+
+        # create a palette
+
+        color_objs = []
+        palette_color_objs = []
+
+        # for each color:
+        #   make sure it exists
+        #   add to the array
+        #   make a palette_color
+        #   add to the array
+
+        # save everything
+        # return the serialized palette
+
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def default_palette(request):

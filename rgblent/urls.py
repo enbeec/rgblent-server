@@ -21,6 +21,7 @@ from rgblent_api.views import (
     UserView,
     ProfileView,
     ColorView,
+    PaletteView,
     colorinfo,
     default_colors,
     default_palette,
@@ -32,6 +33,7 @@ router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'colors', ColorView, 'color')
 router.register(r'users', UserView, 'user')
 router.register(r'profile', ProfileView, 'profile')
+router.register(r'palette', PaletteView, 'palette')
 
 urlpatterns = [
     path('', include(router.urls)),
