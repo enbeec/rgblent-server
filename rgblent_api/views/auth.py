@@ -8,7 +8,6 @@ from contextlib import suppress
 User = get_user_model()
 
 
-
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login_user(request):
