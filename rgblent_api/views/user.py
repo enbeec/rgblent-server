@@ -9,17 +9,9 @@ from rest_framework.decorators import permission_classes
 from rest_framework.permissions import AllowAny
 from rgblent_api.models import UserColor
 from .palette import PaletteSerializer
-from .color import ColorSerializer
+from .color import ColorSerializer, UserColorSerializer
 
 User = get_user_model()
-
-
-class UserColorSerializer(serializers.ModelSerializer):
-    color = ColorSerializer()
-
-    class Meta:
-        model = UserColor
-        fields = ('label', 'color')
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -55,5 +47,3 @@ class UserView(ViewSet):
 class ProfileView(ViewSet):
     def list(self, request):
         user = User.objects.get(pk=request.auth.user.id)
-        serializer = UserSerializer(user, context={'request': request})
-        return Response(serializer.data)

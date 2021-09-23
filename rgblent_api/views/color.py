@@ -13,8 +13,16 @@ class ColorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Color
         # TODO: handle alpha
-        fields = ('rgb_hex', 'red', 'green',
+        fields = ('id', 'rgb_hex', 'red', 'green',
                   'blue', 'builtin', 'is_default')
+
+
+class UserColorSerializer(serializers.ModelSerializer):
+    color = ColorSerializer()
+
+    class Meta:
+        model = UserColor
+        fields = ('label', 'color')
 
 
 class ColorView(ViewSet):
@@ -36,6 +44,12 @@ class ColorView(ViewSet):
         serializer = ColorSerializer(
             colors, many=True, context={'request': request})
         return Response(serializer.data)
+
+    @action(methods=['post'], detail=True)
+    def favorite(self, request, pk=None):
+        color = Color.objects.filter(pk=pk)
+
+        return Response({})
 
 
 @api_view(['POST'])
