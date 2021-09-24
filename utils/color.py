@@ -1,5 +1,6 @@
 from colormath.color_objects import sRGBColor, HSLColor, HSVColor, LabColor, XYZColor
 from colormath.color_conversions import convert_color
+from math import sqrt
 
 
 def rgb_hex__int_tuple(rgb_hex):
@@ -17,3 +18,12 @@ def color_info(rgb_hex):
     }
 
 
+def average(int1, int2):
+    # https://stackoverflow.com/a/29576746
+    return sqrt((int1 ** 2 + int2 ** 2)/2)
+
+
+def color_blend(rgb_hex1, rgb_hex2):
+    (r1, g1, b1) = rgb_hex__int_tuple(rgb_hex1)
+    (r2, g2, b2) = rgb_hex__int_tuple(rgb_hex2)
+    return sRGBColor(average(r1, r2), average(g1, g2), average(b1, b2)).__dict__

@@ -1,12 +1,16 @@
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework.decorators import action, permission_classes, api_view
 from rest_framework.permissions import AllowAny
-from rgblent_api.models import Palette, PaletteColor
+from rgblent_api.models import Palette, PaletteColor, Color
 from .color import ColorSerializer
+from utils.color import rgb_hex__int_tuple
+
+User = get_user_model()
 
 
 class PaletteColorSerializer(serializers.ModelSerializer):
@@ -26,24 +30,56 @@ class PaletteSerializer(serializers.ModelSerializer):
 
 
 class PaletteView(ViewSet):
-    def create(self, request):
-        name = request.data["name"]
-        # ignore all but the first 8 colors just in case
-        colors = request.data["colors"][0:7]
+    def list(self, request):
+        user = User.objects.get(pk=request.auth.user.id)
+        name = request.query_params.get('name', None)
+        if name is not None:
+            palette = Palette.objects.get(name=name)
+            serializer = PaletteSerializer(
+                palette, context={'request': request})
+        else:
+            palettes = Palette.objects.all()
+            serializer = PaletteSerializer(
+                palettes, many=True, context={'request': request})
+        return Response(serializer.data)
 
-        # create a palette
+    def create(self, request):
+        user = User.objects.get(pk=request.auth.user.id)
+        name = request.data["name"]
+
+        try:
+            palette = Palette.objects.get(name=name)
+        except Palette.DoesNotExist as ex:
+            palette = Palette(user=user, name=name)
+            palette.save()
+
+        colors = request.data["colors"]
 
         color_objs = []
         palette_color_objs = []
 
-        # for each color:
-        #   make sure it exists
-        #   add to the array
-        #   make a palette_color
-        #   add to the array
+        for color in colors:
+            (r, g, b) = rgb_hex__int_tuple(color["rgb_hex"])
 
-        # save everything
-        # return the serialized palette
+            try:
+                color_obj = Color.objects.get(red=r, green=g, blue=b)
+            except Color.DoesNotExist as ex:
+                color_obj = Color(red=r, green=g, blue=b)
+
+            palette_color = PaletteColor(
+                palette=palette, color=color_obj, label=color["label"])
+
+            color_objs.append(color_obj)
+            palette_color_objs.append(palette_color)
+
+        for obj in color_objs:
+            obj.save()
+
+        for obj in palette_color_objs:
+            obj.save()
+
+        serializer = PaletteSerializer(palette, context={'request': request})
+        return Response(serializer.data)
 
 
 @api_view(['GET'])
