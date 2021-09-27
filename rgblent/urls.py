@@ -22,6 +22,7 @@ from rgblent_api.views import (
     ProfileView,
     ColorView,
     PaletteView,
+    color_blend,
     colorinfo,
     default_colors,
     default_palette,
@@ -38,6 +39,7 @@ router.register(r'palette', PaletteView, 'palette')
 urlpatterns = [
     path('', include(router.urls)),
     path('colorinfo', colorinfo),
+    path('colorblend', color_blend),
     path('default/colors', default_colors),
     path('default/palette', default_palette),
     path('admin/', admin.site.urls),

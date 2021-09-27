@@ -6,7 +6,7 @@ from rest_framework import serializers
 from rest_framework.decorators import action, permission_classes, api_view
 from rest_framework.permissions import AllowAny
 from rgblent_api.models import Color, UserColor
-from utils.color import color_info
+from utils.color import color_info, colorblend
 
 
 class ColorSerializer(serializers.ModelSerializer):
@@ -60,6 +60,13 @@ def colorinfo(request):
     rgb_hex = request.data["rgb_hex"]
     return Response(color_info(rgb_hex))
 
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def color_blend(request):
+    rgb_hex1 = request.data["color_a"]
+    rgb_hex2 = request.data["color_b"]
+    rgb_hex_new = colorblend(rgb_hex1, rgb_hex2)
+    return Response({"rgb_hex": rgb_hex_new[:7]})
 
 @api_view(['GET'])
 @permission_classes([AllowAny])

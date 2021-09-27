@@ -23,7 +23,7 @@ def average(int1, int2):
     return sqrt((int1 ** 2 + int2 ** 2)/2)
 
 
-def color_blend(rgb_hex1, rgb_hex2):
+def colorblend(rgb_hex1, rgb_hex2):
     (r1, g1, b1) = rgb_hex__int_tuple(rgb_hex1)
     (r2, g2, b2) = rgb_hex__int_tuple(rgb_hex2)
-    return sRGBColor(average(r1, r2), average(g1, g2), average(b1, b2)).__dict__
+    return sRGBColor(average(r1, r2), average(g1, g2), average(b1, b2)).get_rgb_hex()
