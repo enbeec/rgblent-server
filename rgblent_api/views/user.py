@@ -11,6 +11,7 @@ from rgblent_api.models import Color, UserColor
 from .palette import PaletteSerializer
 from .color import ColorSerializer, UserColorSerializer
 from utils.color import rgb_hex__int_tuple
+from rest_framework import status
 
 User = get_user_model()
 
@@ -61,9 +62,11 @@ class ProfileView(ViewSet):
 
         color, _ = Color.objects.get_or_create(red=r, green=g, blue=b)
 
-        user_color, _ = UserColor.objects.get_or_create(
+        user_color, created = UserColor.objects.get_or_create(
             user=user, color=color, label=label)
 
+        if created is not None:
+            return Response("already exists", status=status.HTTP_409_CONFLICT)
         serializer = UserColorSerializer(
             user_color, context={'request': request})
         return Response(serializer.data)
