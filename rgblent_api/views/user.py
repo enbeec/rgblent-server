@@ -59,21 +59,11 @@ class ProfileView(ViewSet):
         print(f"{rgb_hex} {label}")
         (r, g, b) = rgb_hex__int_tuple(rgb_hex)
 
-        try:
-            color = Color.objects.get(red=r, green=g, blue=b)
-        except Color.DoesNotExist as ex:
-            color = Color(red=r, green=g, blue=b)
-            color.save()
+        color, _ = Color.objects.get_or_create(red=r, green=g, blue=b)
 
-        try:
-            user_color = UserColor.objects.get(color=color)
-            # FIXME: add a proper return code
-            return Response("color already exists")
-        except UserColor.DoesNotExist as ex:
-            print(f"{rgb_hex} {label}")
-            user_color = UserColor(user=user, color=color, label=label)
-            user_color.save()
+        user_color, _ = UserColor.objects.get_or_create(
+            user=user, color=color, label=label)
 
-            serializer = UserColorSerializer(
-                user_color, context={'request': request})
-            return Response(serializer.data)
+        serializer = UserColorSerializer(
+            user_color, context={'request': request})
+        return Response(serializer.data)
