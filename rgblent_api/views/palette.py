@@ -35,7 +35,7 @@ class PaletteSerializer(serializers.ModelSerializer):
         if request and hasattr(request, "user"):
             user = request.user
 
-        if user is not None:
+        if user is not None and obj.user is not None:
             return user.id == obj.user.id
 
         return False
