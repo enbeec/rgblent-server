@@ -57,16 +57,20 @@ class ProfileView(ViewSet):
         user = User.objects.get(pk=request.auth.user.id)
         label = request.data['label']
         rgb_hex = request.data['rgb_hex']
-        print(f"{rgb_hex} {label}")
         (r, g, b) = rgb_hex__int_tuple(rgb_hex)
 
         color, _ = Color.objects.get_or_create(red=r, green=g, blue=b)
 
         user_color, created = UserColor.objects.get_or_create(
-            user=user, color=color, label=label)
+            user=user, color=color)
 
-        if created is not None:
-            return Response("already exists", status=status.HTTP_409_CONFLICT)
+        if created is False:
+            serializer = UserColorSerializer(
+                user_color, context={'request': request})
+            return Response(serializer.data, status=status.HTTP_409_CONFLICT)
+
+        user_color.label = label
+        user_color.save()
         serializer = UserColorSerializer(
             user_color, context={'request': request})
         return Response(serializer.data)
