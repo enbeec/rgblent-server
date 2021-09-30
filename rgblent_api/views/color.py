@@ -10,6 +10,7 @@ from utils.color import color_info, colorblend
 
 
 class ColorSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Color
         # TODO: handle alpha
@@ -19,10 +20,22 @@ class ColorSerializer(serializers.ModelSerializer):
 
 class UserColorSerializer(serializers.ModelSerializer):
     color = ColorSerializer()
+    isMine = serializers.SerializerMethodField()
 
     class Meta:
         model = UserColor
-        fields = ('label', 'color')
+        fields = ('label', 'color', 'isMine')
+
+    def get_isMine(self, obj):
+        user = None
+        request = self.context.get("request")
+        if request and hasattr(request, "user"):
+            user = request.user
+
+        if user is not None:
+            return user.id == obj.user.id
+
+        return False
 
 
 class ColorView(ViewSet):
@@ -60,6 +73,7 @@ def colorinfo(request):
     rgb_hex = request.data["rgb_hex"]
     return Response(color_info(rgb_hex))
 
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def color_blend(request):
@@ -67,6 +81,7 @@ def color_blend(request):
     rgb_hex2 = request.data["color_b"]
     rgb_hex_new = colorblend(rgb_hex1, rgb_hex2)
     return Response({"rgb_hex": rgb_hex_new[:7]})
+
 
 @api_view(['GET'])
 @permission_classes([AllowAny])

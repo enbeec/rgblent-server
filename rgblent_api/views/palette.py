@@ -23,10 +23,22 @@ class PaletteColorSerializer(serializers.ModelSerializer):
 
 class PaletteSerializer(serializers.ModelSerializer):
     colors = PaletteColorSerializer(many=True)
+    isMine = serializers.SerializerMethodField()
 
     class Meta:
         model = Palette
-        fields = ('id', 'name', 'colors')
+        fields = ('id', 'name', 'colors', 'isMine')
+
+    def get_isMine(self, obj):
+        user = None
+        request = self.context.get("request")
+        if request and hasattr(request, "user"):
+            user = request.user
+
+        if user is not None:
+            return user.id == obj.user.id
+
+        return False
 
 
 class PaletteView(ViewSet):
