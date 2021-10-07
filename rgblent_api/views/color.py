@@ -93,7 +93,7 @@ def color_info(request):
             }
         """
     rgb_hex = request.data["rgb_hex"]
-    return Response(color_info(rgb_hex))
+    return Response(colorinfo(rgb_hex))
 
 
 @api_view(['POST'])
