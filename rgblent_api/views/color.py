@@ -106,7 +106,7 @@ def color_blend(request):
         """
     rgb_hex1 = request.data["color_a"]
     rgb_hex2 = request.data["color_b"]
-    rgb_hex_new = color_blend(rgb_hex1, rgb_hex2)
+    rgb_hex_new = colorblend(rgb_hex1, rgb_hex2)
     return Response({"rgb_hex": rgb_hex_new[:7]})
 
 
