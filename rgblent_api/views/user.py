@@ -16,6 +16,13 @@ from rest_framework import status
 User = get_user_model()
 
 
+""" @apiDefine TokenAuthorization
+    @apiHeader {String} Authorization Auth token
+    @apiHeaderExample {String} Authorization 
+        Token 9ba45f09651c5b0c404f37a2d2572c026c146694
+    """
+
+
 class UserSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()
     colors = UserColorSerializer(many=True)
@@ -31,6 +38,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 @permission_classes([AllowAny])
 class UserView(ViewSet):
+    """(Public) Request handlers for User objects in RGBlent"""
+
     def list(self, request):
         users = User.objects.all()
         serializer = UserSerializer(
@@ -47,13 +56,80 @@ class UserView(ViewSet):
 
 
 class ProfileView(ViewSet):
+    """Request handlers for RGBlent users' own profile"""
+
     def list(self, request):
+        """
+            @api {GET} /profile GET the current user's profile
+            @apiName GetProfile
+            @apiGroup Profile
+
+            @apiUse TokenAuthorization
+
+            @apiSuccess (200) {Object} user Current user's profile 
+            @apiSuccess (200) {id} user.id Current user's id
+            @apiSuccess (200) {String} user.name Current user's name
+            @apiSuccess (200) {String} user.username Current user's username
+            @apiSuccess (200) {String} user.email Current user's email
+            @apiSuccess (200) {Array} user.colors UserColor objects representing the current user's favorited colors
+            @apiSuccess (200) {Array} user.palettes Palette objects representing the current user's saved palettes
+            @apiSuccessExample {json} Input
+                {
+                    "id": 1
+                    "name": "Joe Shepherd",
+                    "username": "joe",
+                    "email": "joe@joeshepherd.com"
+                    "colors": []
+                    "palettes": []
+                }
+            """
         user = User.objects.get(pk=request.auth.user.id)
         serializer = UserSerializer(user, context={'request': request})
         return Response(serializer.data)
 
     @action(methods=['post'], detail=False)
     def favorite(self, request):
+        """
+            @api {POST} /profile/favorite POST new favorite
+            @apiName CreateFavorite
+            @apiGroup Profile
+
+            @apiUse TokenAuthorization
+
+            @apiSuccess (200) {Object} user_color The newly created UserColor object
+            @apiSuccessExample {Object} 
+                {
+                      "id" => 168,
+                   "label" => "my_fave",
+                   "color" => {
+                            "id" => 174,
+                       "rgb_hex" => "#012345",
+                           "red" => 1,
+                         "green" => 35,
+                          "blue" => 69,
+                       "builtin" => false,
+                    "is_default" => false
+                  },
+                  "isMine" => true
+                }
+
+            @apiError (409 CONFLICT -- Already Exists) {Object} user_color The already created UserColor object
+            @apiErrorExample {Object}
+                {
+                      "id" => 168,
+                   "label" => "my_fave",
+                   "color" => {
+                            "id" => 174,
+                       "rgb_hex" => "#012345",
+                           "red" => 1,
+                         "green" => 35,
+                          "blue" => 69,
+                       "builtin" => false,
+                    "is_default" => false
+                  },
+                  "isMine" => true
+                }
+            """
         user = User.objects.get(pk=request.auth.user.id)
         label = request.data['label']
         rgb_hex = request.data['rgb_hex']

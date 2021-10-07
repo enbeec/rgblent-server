@@ -1,6 +1,6 @@
 from django.conf import settings
 from rest_framework import status
-from rest_framework.viewsets import ViewSet
+from rest_framework.viewsets import ViewSet, ReadOnlyModelViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework.decorators import action, permission_classes, api_view
@@ -24,7 +24,7 @@ class UserColorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserColor
-        fields = ('label', 'color', 'isMine')
+        fields = ('id', 'label', 'color', 'isMine')
 
     def get_isMine(self, obj):
         user = None
@@ -38,38 +38,60 @@ class UserColorSerializer(serializers.ModelSerializer):
         return False
 
 
-class ColorView(ViewSet):
-    def list(self, request):
-        colors = Color.objects.all()
-        serializer = ColorSerializer(
-            colors, many=True, context={'request': request})
-        return Response(serializer.data)
-
-    def retrieve(self, request, pk=None):
-        colors = Color.objects.get(pk=pk)
-        serializer = ColorSerializer(
-            colors, context={'request': request})
-        return Response(serializer.data)
-
-    @action(methods=['get'], detail=False)
-    def defaults(self, request):
-        colors = Color.objects.filter(is_default=True)
-        serializer = ColorSerializer(
-            colors, many=True, context={'request': request})
-        return Response(serializer.data)
-
-    @action(methods=['post'], detail=True)
-    def favorite(self, request, pk=None):
-        color = Color.objects.filter(pk=pk)
-        user_color = UserColor(color=color, label=request.data['label'])
-        serializer = UserColorSerializer(
-            user_color, context={'request': request})
-        return Response(serializer.data)
+class ColorView(ReadOnlyModelViewSet):
+    """ TODO: apidoc entries for list and retrieve """
+    serializer_class = ColorSerializer
+    queryset = Color.objects.all()
 
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def colorinfo(request):
+    """ @api {POST} /colorinfo POST get detailed information on a color
+        @apiName Info
+        @apiGroup Color
+
+        @apiParam {String} rgb_hex The provided color as a hex string
+        @apiParamExample {json}
+            {
+                "rgb_hex": "#405060"
+            }
+
+        @apiSuccess (200) {Object} color_info The provided color translated to different colorspaces
+        @apiSuccessExample (200) {json}
+            {
+                "rgb": {
+                    "rgb_r": 64.0,
+                    "rgb_g": 80.0,
+                    "rgb_b": 96.0,
+                    "is_upscaled": false,
+                },
+                "hsl": {
+                    "hsl_h": 210.0,
+                    "hsl_s": -0.202531645556962025,
+                    "hsl_l": 80.0
+                },
+                "hsv": {
+                    "hsv_h": 210.0,
+                    "hsv_s": 0.3333333333337,
+                    "hsv_v": 96.0
+                },
+                "lab": {
+                    "lab_l": 3636.209104440874,
+                    "lab_a": -150.7336722215644,
+                    "lab_b": -982.4912665013201,
+                    "observer": "2",
+                    "illuminant": "d65",
+                },
+                "xyz": {
+                    "xyz_x": 28581.772648563052,
+                    "xyz_y": 30954.276615825478,
+                    "xyz_z": 52127.62204019337,
+                    "observer": "2",
+                    "illuminant": "d65",
+                }
+            }
+        """
     rgb_hex = request.data["rgb_hex"]
     return Response(color_info(rgb_hex))
 
@@ -77,6 +99,11 @@ def colorinfo(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def color_blend(request):
+    """
+        @api {POST} /colorblend POST two colors and get the result of blending them together
+        @apiName Blend
+        @apiGroup Color
+        """
     rgb_hex1 = request.data["color_a"]
     rgb_hex2 = request.data["color_b"]
     rgb_hex_new = colorblend(rgb_hex1, rgb_hex2)
