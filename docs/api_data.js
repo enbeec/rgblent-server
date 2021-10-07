@@ -1,6 +1,155 @@
 define({ "api": [
   {
     "type": "POST",
+    "url": "/login",
+    "title": "Login and recieve token",
+    "name": "Login",
+    "group": "Authentication",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": "<p>Username</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p>Password</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "{",
+          "content": "{\n    \"username\": \"joe\",\n    \"password\": \"shep\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "credentials",
+            "description": "<p>Logged in user's credentials</p>"
+          },
+          {
+            "group": "200",
+            "type": "credentials.token",
+            "optional": false,
+            "field": "Logged",
+            "description": "<p>in user's authorization token</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "(200) {json}",
+          "content": "{\n    \"token\": \"9ba45f09651c5b0c404f37a2d2572c026c146694\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "rgblent_api/views/auth.py",
+    "groupTitle": "Authentication"
+  },
+  {
+    "type": "POST",
+    "url": "/register",
+    "title": "Register and recieve token",
+    "name": "Register",
+    "group": "Authentication",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": "<p>Username</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p>Password</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "first_name",
+            "description": "<p>First name</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "last_name",
+            "description": "<p>Last name</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Email</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "{",
+          "content": "{\n    \"first_name\": \"Joe\",\n    \"last_name\": \"Shepherd\",\n    \"email\": \"joe@joeshepherd.com\",\n    \"username\": \"joe\",\n    \"password\": \"shep\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "credentials",
+            "description": "<p>Registered user's credentials</p>"
+          },
+          {
+            "group": "200",
+            "type": "credentials.",
+            "optional": false,
+            "field": "credentials.token",
+            "description": "<p>Registered user's authorization token</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "(200) {json}",
+          "content": "{\n    \"token\": \"9ba45f09651c5b0c404f37a2d2572c026c146694\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "rgblent_api/views/auth.py",
+    "groupTitle": "Authentication"
+  },
+  {
+    "type": "POST",
     "url": "/colorblend",
     "title": "POST two colors and get the result of blending them together",
     "name": "Blend",

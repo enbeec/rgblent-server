@@ -7,7 +7,7 @@ def rgb_hex__int_tuple(rgb_hex):
     return (int(rgb_hex[1:3], 16), int(rgb_hex[3:5], 16), int(rgb_hex[5:7], 16))
 
 
-def color_info(rgb_hex):
+def colorinfo(rgb_hex):
     srgb = sRGBColor(*rgb_hex__int_tuple(rgb_hex))
     return {
         "rgb": srgb.__dict__,

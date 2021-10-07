@@ -6,7 +6,7 @@ from rest_framework import serializers
 from rest_framework.decorators import action, permission_classes, api_view
 from rest_framework.permissions import AllowAny
 from rgblent_api.models import Color, UserColor
-from utils.color import color_info, colorblend
+from utils import color_info, colorblend
 
 
 class ColorSerializer(serializers.ModelSerializer):
@@ -98,7 +98,7 @@ def colorinfo(request):
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
-def color_blend(request):
+def colorblend(request):
     """
         @api {POST} /colorblend POST two colors and get the result of blending them together
         @apiName Blend
@@ -106,7 +106,7 @@ def color_blend(request):
         """
     rgb_hex1 = request.data["color_a"]
     rgb_hex2 = request.data["color_b"]
-    rgb_hex_new = colorblend(rgb_hex1, rgb_hex2)
+    rgb_hex_new = color_blend(rgb_hex1, rgb_hex2)
     return Response({"rgb_hex": rgb_hex_new[:7]})
 
 

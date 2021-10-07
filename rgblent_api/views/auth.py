@@ -7,10 +7,36 @@ from contextlib import suppress
 
 User = get_user_model()
 
+""" @apiDefine TokenAuthorization
+    @apiHeader {String} Authorization Auth token
+    @apiHeaderExample {String} Authorization 
+        Token 9ba45f09651c5b0c404f37a2d2572c026c146694
+    """
+
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login_user(request):
+    """
+            @api {POST} /login Login and recieve token
+            @apiName Login
+            @apiGroup Authentication
+
+            @apiParam {String} username Username            
+            @apiParam {String} password Password            
+            @apiParamExample {json}
+                {
+                    "username": "joe",
+                    "password": "shep",
+                }
+
+            @apiSuccess (200) {Object} credentials Logged in user's credentials
+            @apiSuccess (200) {credentials.token} Logged in user's authorization token
+            @apiSuccessExample (200) {json}
+                {
+                    "token": "9ba45f09651c5b0c404f37a2d2572c026c146694"
+                }
+            """
     username = request.data['username']
     password = request.data['password']
 
@@ -30,6 +56,32 @@ def login_user(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register_user(request):
+    """
+            @api {POST} /register Register and recieve token
+            @apiName Register 
+            @apiGroup Authentication
+
+            @apiParam {String} username Username            
+            @apiParam {String} password Password            
+            @apiParam {String} first_name First name
+            @apiParam {String} last_name Last name
+            @apiParam {String} email Email
+            @apiParamExample {json}
+                {
+                    "first_name": "Joe",
+                    "last_name": "Shepherd",
+                    "email": "joe@joeshepherd.com",
+                    "username": "joe",
+                    "password": "shep",
+                }
+
+            @apiSuccess (200) {Object} credentials Registered user's credentials
+            @apiSuccess (200) {credentials.} credentials.token Registered user's authorization token
+            @apiSuccessExample (200) {json}
+                {
+                    "token": "9ba45f09651c5b0c404f37a2d2572c026c146694"
+                }
+            """
     new_user = User.objects.create_user(
         email=request.data['email'],
         password=request.data['password'],

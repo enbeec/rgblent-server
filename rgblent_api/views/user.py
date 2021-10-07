@@ -16,13 +16,6 @@ from rest_framework import status
 User = get_user_model()
 
 
-""" @apiDefine TokenAuthorization
-    @apiHeader {String} Authorization Auth token
-    @apiHeaderExample {String} Authorization 
-        Token 9ba45f09651c5b0c404f37a2d2572c026c146694
-    """
-
-
 class UserSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()
     colors = UserColorSerializer(many=True)
