@@ -35,7 +35,7 @@ fi
 
 # if default colors won't load, try rebuilding migrations
 load default_colors || retry_with_migrations
-load users tokens palettes
+load users tokens palettes user_colors
 
 # custom scripts
 manage csscarl
