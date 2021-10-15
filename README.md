@@ -1,11 +1,5 @@
 # RGBlent Backend
 
-## Stack
-
-- django
-	- django-rest-framework
-- python-colormath
-
 ## Setup Commands
 
 - Run `init_database.sh` to ~~hear more about your car's extended warranty~~ initialize the database.
@@ -17,6 +11,12 @@
 	1) add the filename(s) of the new migrations to `init_database.sh`
 	2) add the (negated) filename to .gitignore
 	3) don't forget to commit these changes as well as the migrations!
+
+- Working with the docs
+	1) Javascript dependencies: `npm install --global apidoc serve`
+	2) Build the docs: `apidoc -i ./rgblent_api/views -f .py -o docs/`
+	3) Serve the docs: `cd docs; serve`
+
 
 ## Tricks
 
@@ -39,3 +39,14 @@ and then run the following command *(hit ":" from NORMAL mode and then type the 
 ```
 
 **TODO:** check to see if this works in VS Code Vim
+
+## Stack
+
+Python:
+- django
+	- django-rest-framework
+- python-colormath
+
+JavaScript:
+- apidoc
+- serve 

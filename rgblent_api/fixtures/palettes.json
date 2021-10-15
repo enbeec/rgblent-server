@@ -87,5 +87,93 @@
       "color": 8,
       "label": "red"
     }
+  },
+  {
+    "pk": 2,
+    "model": "rgblent_api.Palette",
+    "fields": {
+      "user_id": 3,
+      "name": "Val's First Palette"
+    }
+  },
+  {
+    "pk": 9,
+    "model": "rgblent_api.PaletteColor",
+    "fields": {
+      "builtin": true,
+      "palette": 2,
+      "color": 1,
+      "label": "yellow-orange"
+    }
+  },
+  {
+    "pk": 10,
+    "model": "rgblent_api.PaletteColor",
+    "fields": {
+      "builtin": true,
+      "palette": 2,
+      "color": 2,
+      "label": "yellow-green"
+    }
+  },
+  {
+    "pk": 11,
+    "model": "rgblent_api.PaletteColor",
+    "fields": {
+      "builtin": true,
+      "palette": 2,
+      "color": 3,
+      "label": "green"
+    }
+  },
+  {
+    "pk": 12,
+    "model": "rgblent_api.PaletteColor",
+    "fields": {
+      "builtin": true,
+      "palette": 2,
+      "color": 4,
+      "label": "cyan"
+    }
+  },
+  {
+    "pk": 13,
+    "model": "rgblent_api.PaletteColor",
+    "fields": {
+      "builtin": true,
+      "palette": 2,
+      "color": 5,
+      "label": "blue"
+    }
+  },
+  {
+    "pk": 14,
+    "model": "rgblent_api.PaletteColor",
+    "fields": {
+      "builtin": true,
+      "palette": 2,
+      "color": 6,
+      "label": "purple"
+    }
+  },
+  {
+    "pk": 15,
+    "model": "rgblent_api.PaletteColor",
+    "fields": {
+      "builtin": true,
+      "palette": 2,
+      "color": 7,
+      "label": "pink"
+    }
+  },
+  {
+    "pk": 16,
+    "model": "rgblent_api.PaletteColor",
+    "fields": {
+      "builtin": true,
+      "palette": 2,
+      "color": 8,
+      "label": "red"
+    }
   }
 ]

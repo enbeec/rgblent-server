@@ -29,6 +29,10 @@ class RGBlent
     response = self.class.get(path, @options).parsed_response
   end
 
+  def post(path, body)
+    response = self.class.post(path, :headers => @options[:headers], :body => body).parsed_response
+  end
+
   def login(username, password)
     response = self.class.post(
       "/login",

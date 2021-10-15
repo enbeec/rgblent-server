@@ -1,3 +1,4 @@
+""" Every named CSS color with it's proper name """
 css_colors = [
     {"colorname": "LightSkyBlue", "rgb_hex": "#87CEFA"},
     {"colorname": "DarkGray", "rgb_hex": "#A9A9A9"},
